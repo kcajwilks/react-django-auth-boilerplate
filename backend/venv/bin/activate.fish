@@ -36,7 +36,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/wilkinj33/development/react-django-cookicutter/backend/venv"
+set -gx VIRTUAL_ENV "/home/wilkinj33/development/react-django-auth-boilerplate/backend/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

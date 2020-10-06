@@ -40,7 +40,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/wilkinj33/development/react-django-cookicutter/backend/venv"
+VIRTUAL_ENV="/home/wilkinj33/development/react-django-auth-boilerplate/backend/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

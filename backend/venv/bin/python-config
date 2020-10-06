@@ -1,4 +1,4 @@
-#!/home/wilkinj33/development/react-django-cookicutter/backend/venv/bin/python
+#!/home/wilkinj33/development/react-django-auth-boilerplate/backend/venv/bin/python
 
 import sys
 import getopt
