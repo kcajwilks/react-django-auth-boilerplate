@@ -58,9 +58,15 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
+# Allow React app
+CORS_ORIGIN_WHITELIST = (
+    'https://localhost:3000',
+)
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
