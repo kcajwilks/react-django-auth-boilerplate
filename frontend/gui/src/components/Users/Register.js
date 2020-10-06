@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 // reactstrap components
 import {
@@ -7,12 +7,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
-  // Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Container,
   Row,
   Col,
@@ -26,13 +20,25 @@ import Footer from 'components/Footers/Footer.js';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+// redux
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { register } from '../../redux/actions/auth';
+
 class Register extends React.Component {
+  static propTypes = {
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
+  };
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
   }
   render() {
+    if (this.props.isAuthenticated) {
+      return <Redirect to="/profile" />;
+    }
     return (
       <>
         {/* <NavigationBar /> */}
@@ -117,8 +123,7 @@ class Register extends React.Component {
                             .required('Confirm Password is required'),
                         })}
                         onSubmit={(fields) => {
-                          // this.props.register(fields);
-                          console.log(fields);
+                          this.props.register(fields);
                         }}
                         render={({ errors, status, touched }) => (
                           <Form>
@@ -221,4 +226,8 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { register })(Register);

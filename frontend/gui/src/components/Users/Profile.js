@@ -7,7 +7,15 @@ import { Button, Card, Container, Row, Col } from 'reactstrap';
 import NavigationBar from 'components/Navbars/Navbar.js';
 import Footer from 'components/Footers/Footer.js';
 
+// redux
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loadUser } from '../../redux/actions/auth';
+
 class Profile extends React.Component {
+  static propTypes = {
+    loadUser: PropTypes.func.isRequired,
+  };
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -149,4 +157,8 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+});
+
+export default connect(mapStateToProps, { loadUser })(Profile);

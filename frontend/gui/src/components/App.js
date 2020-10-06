@@ -22,7 +22,18 @@ import Profile from './Users/Profile';
 // redux
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+
+// utirls and more
 import { loadUser } from '../redux/actions/auth';
+import PrivateRoute from './Utils/PrivateRoute';
+
+// react-alerts
+import { Provider as AlertProvider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
+const alertOptions = {
+  timeout: 3000,
+  position: 'top center',
+};
 
 class App extends Component {
   componentDidMount() {
@@ -32,6 +43,10 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
+        <AlertProvider
+          template={AlertTemplate}
+          {...alertOptions}
+        ></AlertProvider>
         <Router>
           <Fragment>
             <Switch>
@@ -47,7 +62,11 @@ class App extends Component {
                 path="/password-reset-confirmed"
                 component={PasswordResetConfirmed}
               ></Route>{' '}
-              <Route exact path="/profile" component={Profile}></Route>{' '}
+              <PrivateRoute
+                exact
+                path="/profile"
+                component={Profile}
+              ></PrivateRoute>{' '}
             </Switch>
           </Fragment>
         </Router>

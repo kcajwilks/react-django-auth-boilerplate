@@ -10,18 +10,6 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  PASSWORD_RESET_EMAIL_SENT_SUCCESS,
-  PASSWORD_RESET_EMAIL_SENT_FAIL,
-  PASSWORD_RESET_SUCCESS,
-  PASSWORD_RESET_FAIL,
-  PASSWORD_CHANGE_SUCCESS,
-  PASSWORD_CHANGE_FAIL,
-  CREATE_MESSAGE,
-  USER_UPDATE_SUCCESS,
-  USER_UPDATE_FAIL,
-  EMAIL_CONFIRMING,
-  EMAIL_CONFIRM_SUCCESS,
-  EMAIL_CONFIRM_FAIL,
 } from '../types';
 
 // REGISTER USER
@@ -39,7 +27,7 @@ export const register = ({ username, password1, password2, email }) => (
   const body = JSON.stringify({ username, password1, password2, email });
 
   axios
-    .post('/rest-auth/registration/', body, config)
+    .post('http://localhost:8000/dj-rest-auth/registration/', body, config)
     .then((res) => {
       console.log(res.data);
       dispatch({
@@ -68,7 +56,7 @@ export const login = (username, password) => (dispatch) => {
   const body = JSON.stringify({ username, password });
 
   axios
-    .post('/rest-auth/login/', body, config)
+    .post('http://localhost:8000/dj-rest-auth/login/', body, config)
     .then((res) => {
       console.log(res.data);
       dispatch({
@@ -77,6 +65,7 @@ export const login = (username, password) => (dispatch) => {
       });
     })
     .catch((err) => {
+      console.log(err.response);
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
         type: LOGIN_FAIL,
@@ -89,7 +78,7 @@ export const loadUser = () => (dispatch, getState) => {
   // User Loading
   dispatch({ type: USER_LOADING });
   axios
-    .get('/rest-auth/user/', tokenConfig(getState))
+    .get('http://localhost:8000/dj-rest-auth/user/', tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: USER_LOADED,
@@ -107,7 +96,11 @@ export const loadUser = () => (dispatch, getState) => {
 // LOGOUT USER
 export const logout = () => (dispatch, getState) => {
   axios
-    .post('/rest-auth/logout/', null, tokenConfig(getState))
+    .post(
+      'http://localhost:8000/dj-rest-auth/logout/',
+      null,
+      tokenConfig(getState)
+    )
     .then((res) => {
       dispatch({
         type: LOGOUT_SUCCESS,
