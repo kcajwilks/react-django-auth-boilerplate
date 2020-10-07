@@ -15,9 +15,9 @@ import * as Yup from 'yup';
 // redux
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { passwordReset } from '../../redux/actions/auth';
+import { passwordResetConfirm } from '../../redux/actions/auth';
 
-class PasswordReset extends React.Component {
+class PasswordResetConfirm extends React.Component {
   static propTypes = {
     passwordReset: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
@@ -56,33 +56,65 @@ class PasswordReset extends React.Component {
                       </div>
                       <Formik
                         initialValues={{
-                          email: '',
+                          uid: this.props.match.params.uid,
+                          token: this.props.match.params.token,
+                          new_password1: '',
+                          new_password2: '',
                         }}
                         validationSchema={Yup.object().shape({
-                          email: Yup.string()
-                            .email('Email is invalid')
-                            .required('Email is required'),
+                          new_password1: Yup.string()
+                            .min(6, 'Password must be at least 6 characters')
+                            .required('Password is required'),
+                          new_password2: Yup.string()
+                            .oneOf(
+                              [Yup.ref('new_password1'), null],
+                              'Passwords must match'
+                            )
+                            .required('Confirm Password is required'),
                         })}
                         onSubmit={(fields) => {
-                          this.props.passwordReset(fields.email);
+                          console.log(fields);
+                          this.props.passwordResetConfirm(fields);
                           this.props.history.push('/login');
                         }}
                         render={({ errors, status, touched }) => (
                           <Form>
                             <div className="form-group">
-                              <label htmlFor="email">Email</label>
+                              <label htmlFor="new_password1">
+                                Enter New Password
+                              </label>
                               <Field
-                                name="email"
-                                type="text"
+                                name="new_password1"
+                                type="password"
                                 className={
                                   'form-control' +
-                                  (errors.email && touched.email
+                                  (errors.new_password1 && touched.new_password1
                                     ? ' is-invalid'
                                     : '')
                                 }
                               />
                               <ErrorMessage
-                                name="email"
+                                name="new_password1"
+                                component="div"
+                                className="invalid-feedback"
+                              />
+                            </div>
+                            <div className="form-group">
+                              <label htmlFor="new_password2">
+                                Confirm New Password
+                              </label>
+                              <Field
+                                name="new_password2"
+                                type="password"
+                                className={
+                                  'form-control' +
+                                  (errors.new_password2 && touched.new_password2
+                                    ? ' is-invalid'
+                                    : '')
+                                }
+                              />
+                              <ErrorMessage
+                                name="new_password2"
                                 component="div"
                                 className="invalid-feedback"
                               />
@@ -93,7 +125,8 @@ class PasswordReset extends React.Component {
                               </button>
                             </div>
                             <p>
-                              Try To Login? <Link to="/login">Login</Link>
+                              Already have an account?{' '}
+                              <Link to="/login">Login</Link>
                             </p>
                           </Form>
                         )}
@@ -115,4 +148,6 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { passwordReset })(PasswordReset);
+export default connect(mapStateToProps, { passwordResetConfirm })(
+  PasswordResetConfirm
+);

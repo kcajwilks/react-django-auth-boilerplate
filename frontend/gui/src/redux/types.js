@@ -31,6 +31,5 @@ export const EMAIL_CONFIRM_FAIL = 'EMAIL_CONFIRM_FAIL';
 
 // Error Handling
 export const GET_ERRORS = 'GET_ERRORS';
-
 // Messages
 export const CREATE_MESSAGE = 'CREATE_MESSAGE';

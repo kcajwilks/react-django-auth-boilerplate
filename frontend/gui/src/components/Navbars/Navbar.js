@@ -22,7 +22,16 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap';
 
+// redux (for logout)
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from '../../redux/actions/auth';
+
 class NavigationBar extends React.Component {
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired,
+  };
   componentDidMount() {
     let headroom = new Headroom(document.getElementById('navbar-main'));
     // initialise
@@ -240,6 +249,19 @@ class NavigationBar extends React.Component {
                       Star us on Github
                     </UncontrolledTooltip>
                   </NavItem>
+                  <NavItem>
+                    <Button
+                      className="nav-link-icon"
+                      onClick={this.props.logout}
+                    >
+                      <span className="nav-link-inner--text d-lg-none ml-2">
+                        Logout
+                      </span>
+                    </Button>
+                    <UncontrolledTooltip delay={0} target="tooltip112445449">
+                      Star us on Github
+                    </UncontrolledTooltip>
+                  </NavItem>
                   <NavItem className="d-none d-lg-block ml-lg-4">
                     <Button
                       className="btn-neutral btn-icon"
@@ -265,4 +287,8 @@ class NavigationBar extends React.Component {
   }
 }
 
-export default NavigationBar;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(NavigationBar);

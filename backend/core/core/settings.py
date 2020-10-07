@@ -56,7 +56,7 @@ INSTALLED_APPS = [
 
 ]
 
-SITE_ID = 1
+SITE_ID = 2
 
 # Allow React app
 CORS_ORIGIN_WHITELIST = (
@@ -167,7 +167,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 # Used to allow custom registeration url
-# ACCOUNT_ADAPTER = 'users.adapter.DefaultAccountAdapterCustom'
+ACCOUNT_ADAPTER = 'users.adapter.DefaultAccountAdapterCustom'
 URL_FRONT = 'http://localhost:8000/#'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'localhost'

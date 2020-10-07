@@ -26,7 +26,7 @@ import Footer from 'components/Footers/Footer.js';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-class PasswordResetConfirmed extends React.Component {
+class PasswordResetComplete extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -70,4 +70,4 @@ class PasswordResetConfirmed extends React.Component {
   }
 }
 
-export default PasswordResetConfirmed;
+export default PasswordResetComplete;

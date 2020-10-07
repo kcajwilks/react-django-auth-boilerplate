@@ -16,7 +16,8 @@ import 'assets/scss/argon-design-system-react.scss?v1.1.0';
 import Login from './Users/Login';
 import Register from './Users/Register';
 import PasswordReset from './Users/PasswordReset';
-import PasswordResetConfirmed from './Users/PasswordResetConfirmed';
+import PasswordResetConfirm from './Users/PasswordResetConfirm';
+import PasswordResetComplete from './Users/PasswordResetComplete';
 import Profile from './Users/Profile';
 
 // redux
@@ -59,8 +60,13 @@ class App extends Component {
               ></Route>{' '}
               <Route
                 exact
-                path="/password-reset-confirmed"
-                component={PasswordResetConfirmed}
+                path="/reset/:uid/:token"
+                component={PasswordResetConfirm}
+              />
+              <Route
+                exact
+                path="/password-reset/complete"
+                component={PasswordResetComplete}
               ></Route>{' '}
               <PrivateRoute
                 exact

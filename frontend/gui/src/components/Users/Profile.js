@@ -1,7 +1,7 @@
 import React from 'react';
 
 // reactstrap components
-import { Button, Card, Container, Row, Col } from 'reactstrap';
+import { Button, Card, Container, Row, Col, Modal } from 'reactstrap';
 
 // core components
 import NavigationBar from 'components/Navbars/Navbar.js';
@@ -12,9 +12,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadUser } from '../../redux/actions/auth';
 
+// component imports
+import EmailManager from './ProfileComponents/EmailManager';
+import PasswordManager from './ProfileComponents/PasswordManager';
+import UserManager from './ProfileComponents/UserManager';
+
 class Profile extends React.Component {
   static propTypes = {
     loadUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
   };
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -22,6 +28,8 @@ class Profile extends React.Component {
     this.refs.main.scrollTop = 0;
   }
   render() {
+    // Assign user props
+    const user = this.props.user;
     return (
       <>
         <NavigationBar />
@@ -65,7 +73,7 @@ class Profile extends React.Component {
                           <img
                             alt="..."
                             className="rounded-circle"
-                            src={require('assets/img/theme/team-4-800x800.jpg')}
+                            src={require('assets/img/theme/team-1-800x800.jpg')}
                           />
                         </a>
                       </div>
@@ -114,8 +122,8 @@ class Profile extends React.Component {
                   </Row>
                   <div className="text-center mt-5">
                     <h3>
-                      Jessica Jones{' '}
-                      <span className="font-weight-light">, 27</span>
+                      {user.username}
+                      <span className="font-weight-light"></span>
                     </h3>
                     <div className="h6 font-weight-300">
                       <i className="ni location_pin mr-2" />
@@ -145,6 +153,11 @@ class Profile extends React.Component {
                         </a>
                       </Col>
                     </Row>
+                  </div>
+                  <div className="mt-5 py-5 border-top text-center">
+                    <UserManager />
+                    <EmailManager />
+                    <PasswordManager />
                   </div>
                 </div>
               </Card>
