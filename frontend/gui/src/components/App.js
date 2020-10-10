@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react';
+// reactstrap components
+import { Alert, strong } from 'reactstrap';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -27,14 +29,25 @@ import store from '../redux/store';
 // utirls and more
 import { loadUser } from '../redux/actions/auth';
 import PrivateRoute from './Utils/PrivateRoute';
+import Alerts from './Utils/Alerts';
 
 // react-alerts
 import { Provider as AlertProvider } from 'react-alert';
-import AlertTemplate from 'react-alert-template-basic';
+// import AlertTemplate from 'react-alert-template-basic';
+
 const alertOptions = {
   timeout: 3000,
   position: 'top center',
 };
+
+const AlertTemplate = ({ options, message }) => (
+  <Alert className="alert-warning">
+    {options.type === 'info' && 'INFO: '}
+    {options.type === 'success' && 'Nice one. '}
+    {options.type === 'error' && 'Uh Oh! '}
+    <strong>{message}</strong>
+  </Alert>
+);
 
 class App extends Component {
   componentDidMount() {
@@ -44,38 +57,37 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <AlertProvider
-          template={AlertTemplate}
-          {...alertOptions}
-        ></AlertProvider>
-        <Router>
-          <Fragment>
-            <Switch>
-              <Route exact path="/login" component={Login}></Route>{' '}
-              <Route exact path="/register" component={Register}></Route>{' '}
-              <Route
-                exact
-                path="/password-reset"
-                component={PasswordReset}
-              ></Route>{' '}
-              <Route
-                exact
-                path="/reset/:uid/:token"
-                component={PasswordResetConfirm}
-              />
-              <Route
-                exact
-                path="/password-reset/complete"
-                component={PasswordResetComplete}
-              ></Route>{' '}
-              <PrivateRoute
-                exact
-                path="/profile"
-                component={Profile}
-              ></PrivateRoute>{' '}
-            </Switch>
-          </Fragment>
-        </Router>
+        <AlertProvider template={AlertTemplate} {...alertOptions}>
+          <Router>
+            <Fragment>
+              <Alerts />
+              <Switch>
+                <Route exact path="/login" component={Login}></Route>{' '}
+                <Route exact path="/register" component={Register}></Route>{' '}
+                <Route
+                  exact
+                  path="/password-reset"
+                  component={PasswordReset}
+                ></Route>{' '}
+                <Route
+                  exact
+                  path="/reset/:uid/:token"
+                  component={PasswordResetConfirm}
+                />
+                <Route
+                  exact
+                  path="/password-reset/complete"
+                  component={PasswordResetComplete}
+                ></Route>{' '}
+                <PrivateRoute
+                  exact
+                  path="/profile"
+                  component={Profile}
+                ></PrivateRoute>{' '}
+              </Switch>
+            </Fragment>
+          </Router>
+        </AlertProvider>
       </Provider>
     );
   }

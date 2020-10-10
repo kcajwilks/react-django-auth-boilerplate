@@ -16,12 +16,12 @@ import {
   PASSWORD_RESET_FAIL,
   PASSWORD_CHANGE_SUCCESS,
   PASSWORD_CHANGE_FAIL,
-  CREATE_MESSAGE,
+  // CREATE_MESSAGE,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
-  EMAIL_CONFIRMING,
-  EMAIL_CONFIRM_SUCCESS,
-  EMAIL_CONFIRM_FAIL,
+  // EMAIL_CONFIRMING,
+  // EMAIL_CONFIRM_SUCCESS,
+  // EMAIL_CONFIRM_FAIL,
 } from '../types';
 
 // REGISTER USER
@@ -201,7 +201,11 @@ export const updateUser = ({ username, first_name, last_name }) => (
   console.log(body);
   // User Loading
   axios
-    .patch('/rest-auth/user/', body, tokenConfig(getState))
+    .patch(
+      'http://localhost:8000/dj-rest-auth/user/',
+      body,
+      tokenConfig(getState)
+    )
     .then((res) => {
       dispatch(
         createMessage({ updateUser: 'User details have been updated.' })
@@ -229,7 +233,11 @@ export const passwordChange = ({
   const body = JSON.stringify({ old_password, new_password1, new_password2 });
 
   axios
-    .post('/rest-auth/password/change/', body, tokenConfig(getState))
+    .post(
+      'http://localhost:8000/dj-rest-auth/password/change/',
+      body,
+      tokenConfig(getState)
+    )
     .then((res) => {
       dispatch(createMessage({ passwordChanged: res.data.detail }));
       dispatch({
@@ -252,7 +260,11 @@ export const changeEmail = ({ email }) => (dispatch, getState) => {
   console.log(body);
   // User Loading
   axios
-    .put('/rest-auth/user/', body, tokenConfig(getState))
+    .put(
+      'http://localhost:8000/dj-rest-auth/user/',
+      body,
+      tokenConfig(getState)
+    )
     .then((res) => {
       dispatch(
         createMessage({ updateUser: 'User details have been updated.' })
@@ -274,13 +286,20 @@ export const changeEmail = ({ email }) => (dispatch, getState) => {
 export const resendEmail = (email) => (dispatch, getState) => {
   // Request Body
   const body = JSON.stringify({ email });
-  axios.post('/email/resend/', body, tokenConfig(getState));
+  axios.post(
+    'http://localhost:8000/email/resend/',
+    body,
+    tokenConfig(getState)
+  );
 };
 
 // deleteEmail
 export const deleteEmail = (id) => (dispatch, getState) => {
   // Request Body
-  axios.delete(`/email/delete/${id}/`, tokenConfig(getState));
+  axios.delete(
+    `http://localhost:8000/email/delete/${id}/`,
+    tokenConfig(getState)
+  );
 };
 
 // Setup config with token - helper function for re-use

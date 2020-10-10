@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 
 // core components
-import NavigationBar from 'components/Navbars/Navbar.js';
+// import NavigationBar from 'components/Navbars/Navbar.js';
 import Footer from 'components/Footers/Footer.js';
 
 // form validation

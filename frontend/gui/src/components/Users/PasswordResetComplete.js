@@ -2,29 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  // Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col,
-} from 'reactstrap';
+import { Card, CardBody, Container, Row, Col } from 'reactstrap';
 
 // core components
-import NavigationBar from 'components/Navbars/Navbar.js';
 import Footer from 'components/Footers/Footer.js';
-
-// form validation
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 
 class PasswordResetComplete extends React.Component {
   componentDidMount() {
